@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    restart: unless-stopped
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.0.216:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    restart: unless-stopped
+
+  graphite-exporter:
+    image: prom/graphite-exporter:latest
+    container_name: graphite-exporter
+    command:
+      - "--graphite.listen-address=:2003"   # Gatling шлёт сюда
+      - "--web.listen-address=:9108"        # Prometheus забирает отсюда
+    ports:
+      - "2003:2003/tcp"
+      - "9108:9108"
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - graphite-exporter
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+    restart: unless-stopped
