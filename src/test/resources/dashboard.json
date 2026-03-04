@@ -1,0 +1,136 @@
+{
+  "title": "Gatling Load Test",
+  "uid": "gatling-main",
+  "schemaVersion": 38,
+  "version": 1,
+  "refresh": "5s",
+  "time": { "from": "now-5m", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Active Users",
+      "type": "timeseries",
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "gatling_basicsimulation_users_allUsers_active",
+          "legendFormat": "Active",
+          "datasource": { "type": "prometheus" }
+        },
+        {
+          "expr": "gatling_basicsimulation_users_allUsers_done",
+          "legendFormat": "Done",
+          "datasource": { "type": "prometheus" }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "palette-classic" }, "unit": "short" }
+      }
+    },
+    {
+      "id": 2,
+      "title": "Response Time (ms)",
+      "type": "timeseries",
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "gatling_basicsimulation_allRequests_all_mean",
+          "legendFormat": "Mean",
+          "datasource": { "type": "prometheus" }
+        },
+        {
+          "expr": "gatling_basicsimulation_allRequests_all_percentiles95",
+          "legendFormat": "p95",
+          "datasource": { "type": "prometheus" }
+        },
+        {
+          "expr": "gatling_basicsimulation_allRequests_all_percentiles99",
+          "legendFormat": "p99",
+          "datasource": { "type": "prometheus" }
+        },
+        {
+          "expr": "gatling_basicsimulation_allRequests_all_max",
+          "legendFormat": "Max",
+          "datasource": { "type": "prometheus" }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "palette-classic" }, "unit": "ms" }
+      }
+    },
+    {
+      "id": 3,
+      "title": "Requests/sec (OK)",
+      "type": "timeseries",
+      "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "rate(gatling_basicsimulation_allRequests_ok_count[10s])",
+          "legendFormat": "OK rps",
+          "datasource": { "type": "prometheus" }
+        },
+        {
+          "expr": "rate(gatling_basicsimulation_allRequests_ko_count[10s])",
+          "legendFormat": "KO rps",
+          "datasource": { "type": "prometheus" }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "palette-classic" }, "unit": "reqps" }
+      }
+    },
+    {
+      "id": 4,
+      "title": "OK vs KO count",
+      "type": "stat",
+      "gridPos": { "x": 12, "y": 8, "w": 6, "h": 8 },
+      "targets": [
+        {
+          "expr": "gatling_basicsimulation_allRequests_ok_count",
+          "legendFormat": "OK",
+          "datasource": { "type": "prometheus" }
+        },
+        {
+          "expr": "gatling_basicsimulation_allRequests_ko_count",
+          "legendFormat": "KO",
+          "datasource": { "type": "prometheus" }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "short" },
+        "overrides": [
+          { "matcher": { "id": "byName", "options": "KO" }, "properties": [{ "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "OK" }, "properties": [{ "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }] }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "title": "Mean Response Time",
+      "type": "gauge",
+      "gridPos": { "x": 18, "y": 8, "w": 6, "h": 8 },
+      "targets": [
+        {
+          "expr": "gatling_basicsimulation_allRequests_all_mean",
+          "legendFormat": "Mean ms",
+          "datasource": { "type": "prometheus" }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "min": 0,
+          "max": 5000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 500 },
+              { "color": "red", "value": 2000 }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
