@@ -88,7 +88,7 @@
                 <artifactId>gatling-maven-plugin</artifactId>
                 <version>${gatling-maven-plugin.version}</version>
                 <configuration>
-                    <simulationClass>simulations.BasicSimulation</simulationClass>
+                    <simulationClass>simulations.KafkaSimulation</simulationClass>
                 </configuration>
             </plugin>
         </plugins>
@@ -125,6 +125,20 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
+        </dependency>
+
+        <!-- Kafka client -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>3.7.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.36</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

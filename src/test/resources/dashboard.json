@@ -13,12 +13,12 @@
       "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 },
       "targets": [
         {
-          "expr": "gatling_basicsimulation_users_allUsers_active",
+          "expr": "gatling_kafkasimulation_users_allUsers_active",
           "legendFormat": "Active",
           "datasource": { "type": "prometheus" }
         },
         {
-          "expr": "gatling_basicsimulation_users_allUsers_done",
+          "expr": "gatling_kafkasimulation_users_allUsers_done",
           "legendFormat": "Done",
           "datasource": { "type": "prometheus" }
         }
@@ -34,22 +34,22 @@
       "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 },
       "targets": [
         {
-          "expr": "gatling_basicsimulation_allRequests_all_mean",
+          "expr": "gatling_kafkasimulation_allRequests_all_mean",
           "legendFormat": "Mean",
           "datasource": { "type": "prometheus" }
         },
         {
-          "expr": "gatling_basicsimulation_allRequests_all_percentiles95",
+          "expr": "gatling_kafkasimulation_allRequests_all_percentiles95",
           "legendFormat": "p95",
           "datasource": { "type": "prometheus" }
         },
         {
-          "expr": "gatling_basicsimulation_allRequests_all_percentiles99",
+          "expr": "gatling_kafkasimulation_allRequests_all_percentiles99",
           "legendFormat": "p99",
           "datasource": { "type": "prometheus" }
         },
         {
-          "expr": "gatling_basicsimulation_allRequests_all_max",
+          "expr": "gatling_kafkasimulation_allRequests_all_max",
           "legendFormat": "Max",
           "datasource": { "type": "prometheus" }
         }
@@ -65,12 +65,12 @@
       "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 },
       "targets": [
         {
-          "expr": "rate(gatling_basicsimulation_allRequests_ok_count[10s])",
+          "expr": "rate(gatling_kafkasimulation_allRequests_ok_count[10s])",
           "legendFormat": "OK rps",
           "datasource": { "type": "prometheus" }
         },
         {
-          "expr": "rate(gatling_basicsimulation_allRequests_ko_count[10s])",
+          "expr": "rate(gatling_kafkasimulation_allRequests_ko_count[10s])",
           "legendFormat": "KO rps",
           "datasource": { "type": "prometheus" }
         }
@@ -86,12 +86,12 @@
       "gridPos": { "x": 12, "y": 8, "w": 6, "h": 8 },
       "targets": [
         {
-          "expr": "gatling_basicsimulation_allRequests_ok_count",
+          "expr": "gatling_kafkasimulation_allRequests_ok_count",
           "legendFormat": "OK",
           "datasource": { "type": "prometheus" }
         },
         {
-          "expr": "gatling_basicsimulation_allRequests_ko_count",
+          "expr": "gatling_kafkasimulation_allRequests_ko_count",
           "legendFormat": "KO",
           "datasource": { "type": "prometheus" }
         }
@@ -111,7 +111,7 @@
       "gridPos": { "x": 18, "y": 8, "w": 6, "h": 8 },
       "targets": [
         {
-          "expr": "gatling_basicsimulation_allRequests_all_mean",
+          "expr": "gatling_kafkasimulation_allRequests_all_mean",
           "legendFormat": "Mean ms",
           "datasource": { "type": "prometheus" }
         }
